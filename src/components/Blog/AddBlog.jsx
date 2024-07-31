@@ -2,20 +2,18 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const LoginModal = ({ isOpen, onClose }) => {
+const BlogModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg w-full max-w-sm">
-        <h2 className="text-xl font-semibold mb-4">Login</h2>
+      <div className="bg-white p-6 rounded-lg w-full max-w-lg">
+        <h2 className="text-xl font-semibold mb-4">Create Blog Post</h2>
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ title: "", content: "" }}
           validationSchema={Yup.object({
-            email: Yup.string()
-              .email("Invalid email address")
-              .required("Required"),
-            password: Yup.string().required("Required"),
+            title: Yup.string().required("Required"),
+            content: Yup.string().required("Required"),
           })}
           onSubmit={(values, { setSubmitting }) => {
             // Handle form submission
@@ -27,33 +25,34 @@ const LoginModal = ({ isOpen, onClose }) => {
           {({ isSubmitting }) => (
             <Form>
               <div className="mb-4">
-                <label htmlFor="email" className="block text-gray-700">
-                  Email
+                <label htmlFor="title" className="block text-gray-700">
+                  Title
                 </label>
                 <Field
-                  type="email"
-                  id="email"
-                  name="email"
+                  type="text"
+                  id="title"
+                  name="title"
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 />
                 <ErrorMessage
-                  name="email"
+                  name="title"
                   component="div"
                   className="text-red-500 text-sm"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="password" className="block text-gray-700">
-                  Password
+                <label htmlFor="content" className="block text-gray-700">
+                  Content
                 </label>
                 <Field
-                  type="password"
-                  id="password"
-                  name="password"
+                  as="textarea"
+                  id="content"
+                  name="content"
+                  rows="6"
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 />
                 <ErrorMessage
-                  name="password"
+                  name="content"
                   component="div"
                   className="text-red-500 text-sm"
                 />
@@ -62,9 +61,9 @@ const LoginModal = ({ isOpen, onClose }) => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-secondary text-white px-4 py-2 rounded-md hover:bg-primary-dark"
+                  className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark"
                 >
-                  Login
+                  Submit
                 </button>
                 <button
                   type="button"
@@ -82,4 +81,4 @@ const LoginModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default LoginModal;
+export default BlogModal;
