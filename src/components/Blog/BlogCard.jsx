@@ -40,7 +40,8 @@ const BlogCard = (blogData) => {
       toast.success(`Blog updated successfully`);
       setTimeout(() => {
         closeBlog();
-      }, 2000);
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.log("Error here", error);
       toast.error(error?.data?.message || "Something went wrong.");
@@ -51,7 +52,10 @@ const BlogCard = (blogData) => {
     try {
       const response = await deleteBlog(id).unwrap();
       toast.success(`Blog deleted successfully`);
-      dispatch(fetchBlogsSuccess(blogsData.posts));
+      setTimeout(() => {
+        // refresh page
+        window.location.reload();
+      }, 1000);
     } catch (error) {
       console.log("Error here", error);
       toast.error(error?.data?.message || "Something went wrong.");

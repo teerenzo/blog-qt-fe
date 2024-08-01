@@ -29,8 +29,22 @@ const MyBlogSection = () => {
   }, [blogsData, dispatch]);
 
   return (
-    <div className="flex justify-center items-center w-full h-screen">
-      {isBlogsLoading && <Loader />}
+    <div className=" w-full h-screen">
+      {isBlogsLoading && (
+        <div className="flex flex-col justify-center content-center justify-items-center items-center h-full ">
+          <Loader />{" "}
+        </div>
+      )}
+
+      {!myBlogs.length && !isBlogsLoading && (
+        <div className="flex flex-col justify-center content-center justify-items-center items-center h-full ">
+          <p className="text-xl">
+            {" "}
+            {blogsError ? "Error fetching blogs" : "No blogs found"}
+          </p>
+        </div>
+      )}
+
       <div className="grid gap-6 md:grid-cols-3 lg:grid-cols-3 p-6 w-full">
         {myBlogs.map((blog, index) => (
           <BlogCard key={index} blogData={blog} />

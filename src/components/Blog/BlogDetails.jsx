@@ -84,38 +84,43 @@ const BlogDetailsPage = () => {
       <Header />
       <section id="blogContent" className="my-8 mx-5 lg:mx-20 mt-20">
         {isBlogLoading && <Loader />}
-        <div className="flex flex-col lg:flex-row gap-5">
-          <div className="flex-1">
-            <img
-              src={blog.imageUrl}
-              alt={blog.title}
-              className="w-full h-auto object-cover rounded-lg max-h-96"
-            />
-          </div>
-          <div className="flex-1 text-gray-200">
-            <h3 className="text-2xl font-semibold text-white mb-4">
-              {blog.title}
-            </h3>
-            <p className="text-gray-400 mb-6">
-              <span className="block mb-2">{blog.content}</span>
-            </p>
-          </div>
-        </div>
-        <div className="flex flex-wrap gap-4 mb-6 text-secondary mt-10">
-          <button
+        {!isBlogLoading && (
+          <>
+            <div className="flex flex-col lg:flex-row gap-5">
+              <div className="flex-1">
+                <img
+                  src={blog.imageUrl}
+                  alt={blog.title}
+                  className="w-full h-auto object-cover rounded-lg max-h-96"
+                />
+              </div>
+              <div className="flex-1 text-gray-200">
+                <h3 className="text-2xl font-semibold text-white mb-4">
+                  {blog.title}
+                </h3>
+                <p className="text-gray-400 mb-6">
+                  <span className="block mb-2">{blog.content}</span>
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-4 mb-6 text-secondary mt-10">
+              {/* <button
             id="likeButton"
             className="bg-gray-700 hover:bg-gray-600 text-white px-3 py-1 rounded-md flex items-center gap-2"
           >
             <i className="fa-solid fa-thumbs-up"></i> Like
           </button>
-          <span id="likeCount">0 Likes</span>
-          <span id="commentCount" className="flex items-center gap-2">
-            <i className="fa-solid fa-comments"></i>{" "}
-            <span id="commentCountNumber">
-              {blog.comments?.length} Comments
-            </span>
-          </span>
-        </div>
+          <span id="likeCount">0 Likes</span> */}
+              <span id="commentCount" className="flex items-center gap-2">
+                <i className="fa-solid fa-comments"></i>{" "}
+                <span id="commentCountNumber">
+                  {blog.comments?.length} Comments
+                </span>
+              </span>
+            </div>
+          </>
+        )}
+
         <div className="flex flex-col gap-4 mt-10">
           {blog.comments?.map((comment, index) => (
             <div key={index} className="flex items-start gap-4">

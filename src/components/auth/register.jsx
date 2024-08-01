@@ -29,7 +29,7 @@ const SignUpModal = ({ isOpen, onClose, register }) => {
               .required("Required"),
           })}
           onSubmit={async (values, { setSubmitting }) => {
-            handleSubmit(values, { setSubmitting });
+            await handleSubmit(values, { setSubmitting });
             setSubmitting(false);
             // onClose();
           }}
@@ -125,7 +125,7 @@ const SignUpModal = ({ isOpen, onClose, register }) => {
                   disabled={isSubmitting}
                   className="bg-secondary text-white px-4 py-2 rounded-md hover:bg-primary-dark"
                 >
-                  Sign Up
+                  {isSubmitting ? "Loading..." : "Sign Up"}
                 </button>
                 <button
                   type="button"
