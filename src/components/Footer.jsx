@@ -2,7 +2,10 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <section id="footer" className="bg-secondary text-white py-8">
+    <section
+      id="footer"
+      className="bg-secondary text-white py-8 absolute w-full"
+    >
       <div className="mx-4 md:mx-8 lg:mx-16 flex flex-wrap justify-between py-4">
         <div className="flex flex-col gap-4">
           <h3 className="text-lg font-semibold">My Social Links</h3>
