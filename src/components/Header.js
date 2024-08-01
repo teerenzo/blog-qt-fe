@@ -68,13 +68,14 @@ const Header = () => {
   };
 
   const handleAddBlog = async (data) => {
-    console.log("Data", data);
     try {
       const response = await createBlog(data).unwrap();
       console.log("Blog", response);
       toast.success(`Blog added successfully`);
       setTimeout(() => {
         closeBlog();
+        // refresh the page
+        window.location.reload();
       }, 2000);
     } catch (error) {
       console.log("Error here", error);

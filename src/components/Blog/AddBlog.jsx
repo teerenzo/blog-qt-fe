@@ -41,7 +41,7 @@ const BlogModal = ({ isOpen, onClose, action, data }) => {
             content: Yup.string().required("Required"),
           })}
           onSubmit={(values, { setSubmitting }) => {
-            if (file === null) {
+            if (file === null && data == null) {
               setSubmitting(false);
               toast.error("Please upload an image");
               return;
@@ -86,20 +86,23 @@ const BlogModal = ({ isOpen, onClose, action, data }) => {
                   className="text-red-500 text-sm"
                 />
               </div>
-              <div className="mb-4">
-                <label htmlFor="image" className="block text-gray-700">
-                  Upload Image
-                </label>
-                <input
-                  type="file"
-                  id="image"
-                  name="image"
-                  className="mt-1 block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none"
-                  onChange={(event) => {
-                    setFile(event.currentTarget.files[0]);
-                  }}
-                />
-              </div>
+              {data == null && (
+                <div className="mb-4">
+                  <label htmlFor="image" className="block text-gray-700">
+                    Upload Image
+                  </label>
+                  <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    className="mt-1 block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none"
+                    onChange={(event) => {
+                      setFile(event.currentTarget.files[0]);
+                    }}
+                  />
+                </div>
+              )}
+
               <div className="flex justify-between items-center">
                 <button
                   type="submit"
