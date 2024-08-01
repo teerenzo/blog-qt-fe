@@ -1,9 +1,15 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useRegisterMutation } from "../../redux/services/auth";
 
-const SignUpModal = ({ isOpen, onClose }) => {
+const SignUpModal = ({ isOpen, onClose, register }) => {
   if (!isOpen) return null;
+
+  const handleSubmit = async (values, { setSubmitting }) => {
+    await register(values);
+    setSubmitting(false);
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -22,43 +28,42 @@ const SignUpModal = ({ isOpen, onClose }) => {
               .oneOf([Yup.ref("password"), null], "Passwords must match")
               .required("Required"),
           })}
-          onSubmit={(values, { setSubmitting }) => {
-            // Handle form submission
-            console.log(values);
+          onSubmit={async (values, { setSubmitting }) => {
+            handleSubmit(values, { setSubmitting });
             setSubmitting(false);
-            onClose();
+            // onClose();
           }}
         >
           {({ isSubmitting }) => (
             <Form>
               <div className="mb-4">
-                <label htmlFor="fname" className="block text-gray-700">
+                <label htmlFor="firstName" className="block text-gray-700">
                   First Name
                 </label>
                 <Field
                   type="test"
-                  id="fname"
-                  name="fname"
+                  id="firstName"
+                  name="firstName"
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 />
                 <ErrorMessage
-                  name="fname"
+                  name="firstName"
                   component="div"
                   className="text-red-500 text-sm"
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="lname" className="block text-gray-700">
+                <label htmlFor="lastName" className="block text-gray-700">
                   Last Name
                 </label>
                 <Field
                   type="test"
-                  id="lname"
-                  name="lname"
+                  id="lastName"
+                  name="lastName"
                   className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm"
                 />
                 <ErrorMessage
-                  name="lname"
+                  name="lastName"
                   component="div"
                   className="text-red-500 text-sm"
                 />

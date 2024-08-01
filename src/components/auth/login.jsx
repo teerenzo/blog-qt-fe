@@ -2,8 +2,14 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = ({ isOpen, onClose, login }) => {
   if (!isOpen) return null;
+
+  const handleSubmit = async (values, { setSubmitting }) => {
+    // Handle form submission
+    await login(values);
+    setSubmitting(false);
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -17,11 +23,9 @@ const LoginModal = ({ isOpen, onClose }) => {
               .required("Required"),
             password: Yup.string().required("Required"),
           })}
-          onSubmit={(values, { setSubmitting }) => {
-            // Handle form submission
-            console.log(values);
+          onSubmit={async (values, { setSubmitting }) => {
+            await handleSubmit(values, { setSubmitting });
             setSubmitting(false);
-            onClose();
           }}
         >
           {({ isSubmitting }) => (
@@ -64,7 +68,7 @@ const LoginModal = ({ isOpen, onClose }) => {
                   disabled={isSubmitting}
                   className="bg-secondary text-white px-4 py-2 rounded-md hover:bg-primary-dark"
                 >
-                  Login
+                  {isSubmitting ? "Loading..." : "Login"}
                 </button>
                 <button
                   type="button"
