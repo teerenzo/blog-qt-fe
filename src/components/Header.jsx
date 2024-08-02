@@ -154,11 +154,7 @@ const Header = () => {
           </button>
         )}
       </div>
-      <div className="mobileMenu block md:hidden cursor-pointer">
-        <span className="block w-6 h-0.5 bg-secondary my-1 rounded transition-transform duration-300"></span>
-        <span className="block w-6 h-0.5 bg-secondary my-1 rounded transition-transform duration-300"></span>
-        <span className="block w-6 h-0.5 bg-secondary my-1 rounded transition-transform duration-300"></span>
-      </div>
+
       <LoginModal
         login={handleLogin}
         isOpen={isLoginOpen}
