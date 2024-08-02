@@ -67,13 +67,24 @@ const BlogCard = (blogData) => {
         <img
           src={blog.imageUrl}
           alt={blog.title}
-          className="w-full h-40 object-cover"
+          className="w-full min-h-64 h-40 object-cover"
         />
         <div className="p-4">
           <h3 className="text-xl font-semibold text-gray-900 mb-2">
-            {blog && blog.title}
+            {blog && blog.title.length > 40
+              ? blog.title.slice(0, 40) + "..."
+              : blog.title}
           </h3>
-          <p className="text-gray-700 mb-4">{blog.content}</p>
+          <p className="text-gray-700 mb-4">
+            {blog.content.length > 100
+              ? blog.content.slice(0, 100) + "..."
+              : blog.content}
+          </p>
+
+          {/* <!-- adding date */}
+          <p className="text-gray-700 mb-4">
+            {new Date(blog.createdAt).toDateString()}
+          </p>
           <div className="flex justify-between">
             <Link
               to={`/blog/${blog && blog.id}`}
