@@ -29,7 +29,7 @@ const MyBlogSection = () => {
   }, [blogsData, dispatch]);
 
   return (
-    <div className=" w-full h-screen">
+    <div className=" min-h-96 w-full ">
       {isBlogsLoading && (
         <div className="flex flex-col justify-center content-center justify-items-center items-center h-full ">
           <Loader />{" "}

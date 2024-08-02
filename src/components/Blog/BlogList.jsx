@@ -23,17 +23,18 @@ const BlogSection = () => {
   }, [blogsData, dispatch]);
 
   return (
-    <div className="h-screen w-full">
+    <div className="min-h-96 w-full ">
       {isBlogsLoading && (
         <div className="flex flex-col justify-center content-center justify-items-center items-center ">
           <Loader />{" "}
         </div>
       )}
-      {blogsError && <p>Error fetching blogs</p>}
 
       {!blogs.length && !isBlogsLoading && (
         <div className="flex flex-col justify-center content-center justify-items-center items-center h-full ">
-          <p className="text-xl">No blogs found</p>
+          <p className="text-xl">
+            {blogsError ? "Error fetching blogs" : "No blogs found"}
+          </p>
         </div>
       )}
 
