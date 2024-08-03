@@ -1,10 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
+  const { blogs, myBlogs } = useSelector((state) => state.blogs);
+
   return (
     <section
       id="footer"
-      className="bg-secondary text-white py-8 absolute w-full"
+      className={
+        `bg-secondary text-white py-8 absolute w-full  md:bottom-auto ` +
+        (blogs.length > 0 || myBlogs.length > 0 ? "" : "bottom-0")
+      }
     >
       <div className="mx-4 md:mx-8 lg:mx-16 flex flex-wrap justify-between py-4">
         <div className="flex flex-col gap-4">

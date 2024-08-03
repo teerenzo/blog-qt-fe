@@ -30,6 +30,12 @@ const Header = () => {
 
   const [createBlog, { isLoading: isBlogLoading }] = useCreateBlogMutation();
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   const dispatch = useDispatch();
 
   const handleRegister = async (data1) => {
@@ -101,7 +107,7 @@ const Header = () => {
           BlogApp
         </Link>
       </h2>
-      <div className="flex items-center gap-4">
+      <div className="md:flex items-center gap-4 hidden ">
         <ul className="flex list-none space-x-4">
           {isLogged && (
             <li>
@@ -153,6 +159,96 @@ const Header = () => {
             </a>
           </button>
         )}
+      </div>
+      <div className="md:hidden cursor-pointer" onClick={toggleMobileMenu}>
+        <span
+          className={`block w-6 h-0.5 bg-secondary my-1 rounded transition-transform duration-300 ${
+            isMobileMenuOpen ? "transform rotate-45 translate-y-2" : ""
+          }`}
+        ></span>
+        <span
+          className={`block w-6 h-0.5 bg-secondary my-1 rounded transition-transform duration-300 ${
+            isMobileMenuOpen ? "opacity-0" : ""
+          }`}
+        ></span>
+        <span
+          className={`block w-6 h-0.5 bg-secondary my-1 rounded transition-transform duration-300 ${
+            isMobileMenuOpen ? "transform -rotate-45 -translate-y-2" : ""
+          }`}
+        ></span>
+      </div>
+      <div
+        className={`fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300 ${
+          isMobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={toggleMobileMenu}
+      ></div>
+      <div
+        className={`fixed top-0 right-0 w-64 h-full max-h-48 bg-white shadow-lg z-50 transform transition-transform duration-300 ${
+          isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex justify-end p-4">
+          <span
+            className="block w-6 h-6 flex items-center justify-center rounded-full transition-transform duration-300"
+            onClick={toggleMobileMenu}
+          >
+            X
+          </span>
+        </div>
+        <div className="flex flex-col items-center p-4">
+          <ul className="list-none space-y-4">
+            {isLogged && (
+              <li>
+                <a
+                  onClick={openBlog}
+                  className="text-gray-700 hover:text-secondary transition-colors duration-300"
+                >
+                  Add Blog
+                </a>
+              </li>
+            )}
+            {isLogged && (
+              <li>
+                <Link
+                  to="/my-blogs"
+                  className="text-gray-700 hover:text-secondary transition-colors duration-300"
+                >
+                  My Blogs
+                </Link>
+              </li>
+            )}
+
+            {!isLogged && (
+              <li>
+                <a
+                  onClick={openSignUp}
+                  className="text-gray-700 hover:text-secondary transition-colors duration-300"
+                >
+                  Sign Up
+                </a>
+              </li>
+            )}
+
+            {isLogged && (
+              <li>
+                <a
+                  onClick={handleLogout}
+                  className="text-gray-700 hover:text-secondary transition-colors duration-300"
+                >
+                  Log out
+                </a>
+              </li>
+            )}
+          </ul>
+          {!isLogged && (
+            <button className="bg-secondary text-white py-2 px-4 rounded hover:bg-secondary-dark transition-colors duration-300 mt-4">
+              <a href="#" onClick={openLogin}>
+                SIGN IN
+              </a>
+            </button>
+          )}
+        </div>
       </div>
 
       <LoginModal
